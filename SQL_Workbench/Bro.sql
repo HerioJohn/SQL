@@ -310,6 +310,113 @@ VALUES (4.99, 3),
 DELETE FROM customer
 WHERE customer_id = 3; -- can't do this because customer_id is already a foreign key, can't delete this unless we remove the foreign key
 
+-- -------------------------------------------- [Ch. 16] JOINS are easy (INNER, LEFT, RIGHT)
+
+-- INNER JOIN
+SELECT transaction_id, amount,
+FROM transactions INNER JOIN customers
+ON transactions customer_id = customers.customer_id;
+
+-- INNER JOIN but hide customer id
+SELECT transaction_id, amount, first_name, last_name
+FROM transactions INNER JOIN customers
+ON transactions customer_id = customers.customer_id;
+
+-- LEFT JOIN
+SELECT *
+FROM transactions LEFT JOIN customers
+ON transactions customer_id = customers.customer_id;
+
+-- RIGHT JOIN
+SELECT *
+FROM transactions RIGHT JOIN customers
+ON transactions customer_id = customers.customer_id;
+
+-- -------------------------------------------- [Ch. 17] Functions in MySQL are easy
+
+SELECT * FROM transactions;
+
+INSERT INTO transactions
+VALUES (1001, 5),
+	   (1002, 8),
+	   (1003, 2),
+	   (1004, 12);
+
+SELECT COUNT(amount)
+FROM transactions;
+
+SELECT MAX(amount)
+FROM transactions;
+
+SELECT MIN(amount)
+FROM transactions;
+
+SELECT AVG(amount)
+FROM transactions;
+
+SELECT SUM(amount)
+FROM transactions;
+
+SELECT * FROM employees
+
+SELECT CONCAT(first_name," ",last_name) AS full_name
+FROM employees;
+
+-- -------------------------------------------- [Ch. 18] logical operators are easy
+
+ALTER TABLE employees
+ADD COLUMN job VARCHAR(25) AFTER hourly_pay;
+SELECT * FROM employees; 
+
+UPDATE employees 
+SET job = "astt. manager"
+WHERE employee_id = 5;
+SELECT * FROM employees;
+
+SELECT * FROM employees
+WHERE hire_date < "2023-01-05" AND job = "cook";
+
+-- -------------------------------------------- [Ch. 19] wild cards are easy
+
+-- Wild Card: % And _ 
+
+SELECT * FROM employees
+WHERE first_name LIKE "s%"; -- seachh first_name that is begin with "s"
+
+SELECT * FROM employees
+WHERE job LIKE "_ook"; -- _ means random character
+
+SELECT * FROM employees
+WHERE hire_date LIKE "____-01-__"; -- example 2 of using _
+
+-- -------------------------------------------- [Ch. 20] ORDER BY clause is easy
+
+SELECT * FROM employees
+ORDER BY last_name ASC; -- order from A - Z , 1 - 100
+
+SELECT * FROM employees
+ORDER BY last_name DESC; -- order from Z - A, 100 - 1
+
+SELECT * FROM employees
+ORDER BY amount, customer_id; -- add one more compare incase there are same value
+
+-- -------------------------------------------- [Ch. 21] LIMIT clause is easy
+
+-- LIMIT cluase is used to limit the number of records.
+-- Useful if you are working with a lot of data.
+-- Can be used to display a large data on pages (pagination).
+
+SELECT * FROM customers
+LIMIT 1; -- display onyly the first row
+
+SELECT * FROM customers
+ORDER BY last_name LIMIT 2; -- combine with ORDER BY method
+
+SELECT * FROM customers
+LIMIT 10 , 10; -- display row 11 - 20
+
+
+
 
 
 
